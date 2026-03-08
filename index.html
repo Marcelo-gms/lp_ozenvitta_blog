@@ -64,7 +64,7 @@
 
         .hero {
             width: 100%;
-            height: 500px;
+
             background: #e6e6e6;
             display: flex;
             align-items: center;
@@ -72,7 +72,17 @@
             margin-bottom: 20px;
         }
 
-        .hero img {
+        .hero-mobile {
+            width: 100%;
+            background: #e6e6e6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .hero img,
+        .hero-mobile img {
             width: 100%;
             height: 100%;
         }
@@ -169,6 +179,20 @@
             color: #777;
             margin-top: 40px;
         }
+
+        #hero-desktop {
+            display: none;
+        }
+
+        @media screen and (min-width:768px) {
+            #hero-desktop {
+                display: block;
+            }
+
+            #hero-mobile {
+                display: none;
+            }
+        }
     </style>
 
 </head>
@@ -196,12 +220,15 @@
         </h1>
 
         <div class="meta">
-            Por Ana Oliveira • Atualizado hoje
+            Por Dra. Ana Oliveira • Atualizado em <span id="dataAtual"></span>
         </div>
 
-        <div class="hero">
-            <!-- <span>ESPAÇO PARA IMAGEM PRINCIPAL</span> -->
+        <div class="hero" id="hero-desktop">
             <img src="./img/Combos_5_potes.png" alt="">
+        </div>
+
+        <div class="hero-mobile" id="hero-mobile">
+            <img src="./img/1_pote.png" alt="">
         </div>
 
         <p>
@@ -336,6 +363,14 @@
         }
 
         setInterval(updateViewerCount, 5000)
+
+
+
+        const dataEl = document.querySelector("#dataAtual")
+
+        const data = new Intl.DateTimeFormat("pt-BR").format(new Date());
+
+        dataEl.innerHTML = data;
 
     </script>
 
