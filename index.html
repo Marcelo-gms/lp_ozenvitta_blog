@@ -193,6 +193,174 @@
                 display: none;
             }
         }
+
+        .cookie-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.50);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .cookie-modal {
+            background: white;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.5s ease;
+        }
+
+        .cookie-header {
+            padding: 32px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cookie-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .cookie-body {
+            padding: 32px;
+        }
+
+        .cookie-body p {
+            color: #475569;
+            line-height: 1.7;
+            font-size: 1rem;
+            margin-bottom: 24px;
+        }
+
+        .cookie-buttons {
+            display: grid;
+            gap: 12px;
+        }
+
+        .cookie-btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            text-align: center;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .btn-aceitar {
+            background: #10b981;
+            color: #ffffff;
+            box-shadow: 0 4px 12px #10b98140;
+        }
+
+        .btn-aceitar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px #10b98160;
+        }
+
+        .btn-recusar {
+            background: #ef4444;
+            color: #ffffff;
+            box-shadow: 0 4px 12px #ef444440;
+        }
+
+        .btn-recusar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px #ef444460;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden-content {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cookie-modal {
+                border-radius: 16px;
+            }
+
+            .cookie-header {
+                padding: 24px 20px;
+            }
+
+            .cookie-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .cookie-body {
+                padding: 24px 20px;
+            }
+
+            .cookie-buttons {
+                gap: 10px;
+            }
+
+            .cookie-btn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+        }
     </style>
 
 </head>
@@ -351,6 +519,32 @@
 
     </div>
 
+
+
+    <div class="cookie-overlay" id="cookieOverlay">
+        <div class="cookie-modal">
+            <button class="close-btn" onclick="aceitarCookies()" aria-label="Fechar">✕</button>
+
+            <div class="cookie-header">
+                <h2>🍪 Aviso sobre Cookies</h2>
+            </div>
+
+            <div class="cookie-body">
+                <p>Este site utiliza cookies para melhorar sua experiência de navegação. Ao continuar navegando, você
+                    concorda com nossa Política de Privacidade e o uso de cookies.</p>
+
+                <div class="cookie-buttons">
+                    <button class="cookie-btn btn-aceitar" onclick="aceitarCookies()">
+                        Aceitar e Continuar
+                    </button>
+                    <button class="cookie-btn btn-recusar" onclick="aceitarCookies()">
+                        Não Aceitar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
 
         function updateViewerCount() {
@@ -371,6 +565,24 @@
         const data = new Intl.DateTimeFormat("pt-BR").format(new Date());
 
         dataEl.innerHTML = data;
+
+
+        function aceitarCookies() {
+            window.location.replace('https://app.monetizze.com.br/r/BZP1901140');
+        }
+
+        document.getElementById('cookieOverlay').addEventListener('click', function (e) {
+            if (e.target === this) {
+                aceitarCookies();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                aceitarCookies();
+            }
+        });
+
 
     </script>
 
